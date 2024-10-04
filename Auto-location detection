@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Location Detection</title>
+    <script>
+        function getLocation() {
+            // Check if geolocation is supported
+            if (navigator.geolocation) {
+                // Get the user's location
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            // Extract latitude and longitude from position object
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            document.getElementById("location").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon;
+
+            // You can also send this data to your server or use it in maps
+            // For example, using Google Maps API to show location on a map
+        }
+
+        function showError(error) {
+            // Handle errors
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<h2>Click the button to allow the browser to detect your location:</h2>
+<button onclick="getLocation()">Allow Location</button>
+
+<p id="location">Location information will appear here...</p>
+
+</body>
+</html>
